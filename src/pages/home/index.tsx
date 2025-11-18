@@ -8,7 +8,7 @@ const HomePage = () => {
     useGetAllProducts();
 
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-6">
       <header>
         <h3>Dashboard</h3>
       </header>
