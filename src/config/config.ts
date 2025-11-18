@@ -1,7 +1,7 @@
 import Z from "zod";
 
 const envSchema = Z.object({
-  API_URL: Z.string().nonempty().default("https://fakestoreapi.com"),
+  API_URL: Z.string().nonempty().default("https://api.escuelajs.co/api/v1/"),
 });
 
 const validateEnv = () => {
