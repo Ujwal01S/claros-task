@@ -19,20 +19,30 @@ import {
 } from "../ui/sidebar";
 
 const AppSidebar = () => {
-  const location = useLocation();
-  console.log(location);
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
+
   return (
-    <Sidebar className="mt-16">
+    <Sidebar
+      className="mt-16"
+      collapsible="icon"
+    >
       <SidebarContent>
         <SidebarGroupLabel>Application</SidebarGroupLabel>
         <SidebarGroup>
           <SidebarMenu>
             {navigationData.map((nav) => (
-              <Collapsible key={nav.title}>
+              <Collapsible
+                key={nav.title}
+                defaultOpen={isHomePage && nav.title === "Home"}
+              >
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton className="group/collapsible data-[state=open]:bg-[#E0E0E0]">
-                      <nav.icon className="mr-2 h-4 w-4" />
+                      {(() => {
+                        const Icon = nav.icon;
+                        return <Icon className="mr-2 h-4 w-4" />;
+                      })()}
                       <span className="flex-1 capitalize font-semibold">
                         {nav.title}
                       </span>
@@ -48,7 +58,7 @@ const AppSidebar = () => {
                           <Link
                             key={subNav.title}
                             to={subNav.url}
-                            className="capitalize"
+                            className={`capitalize rounded-sm pl-2 ${pathname === subNav.url ? "bg-[#E0E0E0]" : undefined}`}
                           >
                             <SidebarMenuSubItem className="capitalize text-sm font-medium py-1">
                               {subNav.title}

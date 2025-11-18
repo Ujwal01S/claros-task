@@ -5,13 +5,16 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
 import { BrowserRouter } from "react-router";
+import ReactQueryProvider from "./providers/react-query.provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ReactQueryProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ReactQueryProvider>
   </StrictMode>,
 );
