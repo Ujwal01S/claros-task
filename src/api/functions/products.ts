@@ -1,16 +1,30 @@
 import api from "@/services/api-request";
-import { getProductUrl } from "../urls/products";
+import { getProductUrl, type IGetProductOptions } from "../urls/products";
 import type { IGetProductsResponse } from "@/types/product.types";
 
 interface IGetProductProps {
-  getAllProducts: () => Promise<IGetProductsResponse>;
+  getAllProducts: (
+    options?: IGetProductOptions,
+  ) => Promise<IGetProductsResponse>;
+
+  deleteProduct: (id: number) => Promise<boolean>;
 }
 
 export const getProductFn: IGetProductProps = {
-  getAllProducts: async () => {
-    const url = getProductUrl.getAllProduct;
+  getAllProducts: async (options?: IGetProductOptions) => {
+    const url = getProductUrl.getAllProduct(options);
 
     const response = await api.get(url);
+
+    return response.data;
+  },
+
+  deleteProduct: async (id: number) => {
+    const url = getProductUrl.deleteProduct(id);
+
+    console.log({ url });
+
+    const response = await api.delete(url);
 
     return response.data;
   },
