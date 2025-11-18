@@ -1,3 +1,4 @@
+// utility to convert url - into space
 export function formatBreadcrumb(segment: string): string {
   return segment
     .split("-")
