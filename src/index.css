@@ -3,6 +3,37 @@
 
 @custom-variant dark (&:is(.dark *));
 
+h1 {
+  @apply text-4xl md:text-5xl lg:text-4xl font-bold leading-tight;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl lg:text-3xl font-bold leading-tight;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl lg:text-2xl font-bold leading-snug;
+}
+
+h4 {
+  @apply text-xl md:text-2xl lg:text-xl font-semibold leading-snug;
+}
+
+h5 {
+  @apply text-lg md:text-xl lg:text-lg font-medium leading-normal;
+}
+
+.container {
+  @apply w-full mx-auto px-0 max-w-[90rem];
+  /* max-width of 1440px */
+}
+
+@theme {
+  --color-category: #4f46e5;
+  --color-product: #059669;
+  --color-user: #dc2626;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
