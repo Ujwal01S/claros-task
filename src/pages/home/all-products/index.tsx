@@ -27,7 +27,6 @@ const AllProductsPage = () => {
 
   const handleConfirmDelete = async () => {
     mutate(id as number);
-    dispatch(closeDeleteDialog());
   };
 
   return (

@@ -22,8 +22,6 @@ export const getProductFn: IGetProductProps = {
   deleteProduct: async (id: number) => {
     const url = getProductUrl.deleteProduct(id);
 
-    console.log({ url });
-
     const response = await api.delete(url);
 
     return response.data;
