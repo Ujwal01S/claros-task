@@ -1,4 +1,11 @@
-import { ChevronRight, Database, HomeIcon } from "lucide-react";
+import { navigationData } from "@/constants/sidebar-navigation.constant";
+import { ChevronRight } from "lucide-react";
+import { Link, useLocation } from "react-router";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -10,32 +17,10 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "../ui/sidebar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../ui/collapsible";
-import { Link } from "react-router";
-
-const navigationData = [
-  {
-    title: "Home",
-    url: "#",
-    icon: HomeIcon,
-  },
-  {
-    title: "Data",
-    url: "#",
-    icon: Database,
-    subNavigation: [
-      { title: "product", url: "products" },
-      { title: "category", url: "categories" },
-      { title: "user", url: "user" },
-    ],
-  },
-];
 
 const AppSidebar = () => {
+  const location = useLocation();
+  console.log(location);
   return (
     <Sidebar className="mt-16">
       <SidebarContent>
@@ -58,14 +43,14 @@ const AppSidebar = () => {
                   </CollapsibleTrigger>
                   {nav.subNavigation && (
                     <CollapsibleContent>
-                      <SidebarMenuSub>
+                      <SidebarMenuSub className="border-l-2">
                         {nav.subNavigation.map((subNav) => (
                           <Link
                             key={subNav.title}
-                            to={"#"}
+                            to={subNav.url}
                             className="capitalize"
                           >
-                            <SidebarMenuSubItem className="capitalize text-sm font-medium">
+                            <SidebarMenuSubItem className="capitalize text-sm font-medium py-1">
                               {subNav.title}
                             </SidebarMenuSubItem>
                           </Link>

@@ -12,7 +12,7 @@ const RootLayout = () => {
           <AppSidebar />
           <SidebarInset className="overflow-x-hidden">
             <main className="flex-1">
-              <div className="flex items-center gap-4 mb-3">
+              <div className="flex flex-col  gap-4 mb-3">
                 <SidebarTrigger />
                 <Outlet />
               </div>
