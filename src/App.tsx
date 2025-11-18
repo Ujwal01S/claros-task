@@ -1,12 +1,7 @@
-import { Button } from "./components/ui/button";
+import ProjectRoutes from "./routes";
 
 const App = () => {
-  return (
-    <div className="text-center text-3xl text-red-500">
-      Welcome
-      <Button>Check</Button>
-    </div>
-  );
+  return <ProjectRoutes />;
 };
 
 export default App;
