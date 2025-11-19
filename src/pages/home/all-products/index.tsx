@@ -44,7 +44,7 @@ const AllProductsPage = () => {
   };
 
   const handleConfirmDelete = async () => {
-    mutate(id as number);
+    mutate(Number(id));
   };
 
   return (

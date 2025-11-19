@@ -1,5 +1,5 @@
 const Routes = {
-  HOME_ALL_PRODUCTS: "/all-product",
+  HOME_ALL_PRODUCTS: "/view-product",
   HOME_ALL_CATEGORY: "/all-category",
 
   // data routes

@@ -7,7 +7,7 @@ export const navigationData: INavigationProps[] = [
     url: "#",
     icon: HomeIcon,
     subNavigation: [
-      { title: "All Products", url: "/all-product" },
+      { title: "View Products", url: "/view-product" },
       { title: "All Category", url: "/all-category" },
     ],
   },

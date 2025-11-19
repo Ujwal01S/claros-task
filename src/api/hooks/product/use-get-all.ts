@@ -2,10 +2,13 @@ import { getProductFn } from "@/api/functions/products";
 import type { IGetProductOptions } from "@/api/urls/products";
 import { productQueryKey } from "@/constants/query-key.constant";
 import type { IGetProductsResponse } from "@/types/product.types";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export const useGetAllProducts = (options?: IGetProductOptions) => {
-  const { data, isPending } = useQuery<IGetProductsResponse, string>({
+  const { data, isPending, isFetching } = useQuery<
+    IGetProductsResponse,
+    string
+  >({
     queryFn: async () => {
       return getProductFn.getAllProducts(options);
     },
@@ -16,7 +19,10 @@ export const useGetAllProducts = (options?: IGetProductOptions) => {
       options?.price,
       options?.title,
     ],
+    placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false,
+    staleTime: 5_000,
   });
 
-  return { data, isPending };
+  return { data, isPending, isFetching };
 };
