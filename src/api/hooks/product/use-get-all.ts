@@ -13,6 +13,8 @@ export const useGetAllProducts = (options?: IGetProductOptions) => {
       productQueryKey.GET_ALL_PRODUCTS,
       options?.limit,
       options?.offset,
+      options?.price,
+      options?.title,
     ],
   });
 

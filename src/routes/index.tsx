@@ -1,5 +1,6 @@
 import RootLayout from "@/components/layout/layout";
 import NotFound from "@/components/not-found";
+import { Spinner } from "@/components/ui/spinner";
 import { ROUTE } from "@/constants/route.constant";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router";
@@ -16,7 +17,7 @@ const ProjectRoutes = () => {
         <Route
           index
           element={
-            <Suspense>
+            <Suspense fallback={<Spinner />}>
               <HomePage />
             </Suspense>
           }
@@ -25,7 +26,7 @@ const ProjectRoutes = () => {
         <Route
           path={ROUTE.HOME_ALL_PRODUCTS}
           element={
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<Spinner />}>
               <AllProductsPage />
             </Suspense>
           }
@@ -35,7 +36,7 @@ const ProjectRoutes = () => {
         <Route
           path={ROUTE.DATA_CATEGORY}
           element={
-            <Suspense>
+            <Suspense fallback={<Spinner />}>
               <CategoryPage />
             </Suspense>
           }

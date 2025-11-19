@@ -7,6 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Spinner } from "@/components/ui/spinner";
+import { memo } from "react";
 
 interface Props {
   open: boolean;
@@ -47,7 +49,13 @@ const DeleteDialog = ({
             onClick={onDelete}
             disabled={loading}
           >
-            {loading ? "Deleting..." : "Delete"}
+            {loading ? (
+              <div className="flex gap-2">
+                <Spinner /> Deleting...
+              </div>
+            ) : (
+              "Delete"
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -55,4 +63,4 @@ const DeleteDialog = ({
   );
 };
 
-export default DeleteDialog;
+export default memo(DeleteDialog);
