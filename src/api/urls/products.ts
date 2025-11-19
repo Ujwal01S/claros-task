@@ -7,8 +7,10 @@ interface IProductUrlProps {
 }
 
 export interface IGetProductOptions {
-  offset: number;
-  limit: number;
+  offset?: number;
+  limit?: number;
+  title?: string;
+  price?: number;
   [key: string]: string | number | null | undefined;
 }
 

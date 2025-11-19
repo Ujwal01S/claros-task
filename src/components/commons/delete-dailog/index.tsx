@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
+import { memo } from "react";
 
 interface Props {
   open: boolean;
@@ -62,4 +63,4 @@ const DeleteDialog = ({
   );
 };
 
-export default DeleteDialog;
+export default memo(DeleteDialog);
