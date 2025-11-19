@@ -1,6 +1,6 @@
-import PaginationButton from "@/components/commons/pagination-button";
 import TableSearchColumn from "@/components/data-table/filter-column";
 import DataTableRender from "@/components/data-table/render-row";
+import TablePagination from "@/components/data-table/table-pagination";
 import TableFilterColumn from "@/components/data-table/view-options";
 import {
   Card,
@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { useCategoryColumn } from "@/hooks/table-columns/use-category-column";
-import type { IGetCateoryResponse } from "@/types/category.types";
+import { useUserColumn } from "@/hooks/table-columns/use-user-column";
+import type { IGetUsersResponse } from "@/types/user.types";
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -23,13 +23,7 @@ import {
 import { TriangleAlert } from "lucide-react";
 import { useState } from "react";
 
-const CategoryTable = ({
-  categoryData,
-  isFetching,
-}: {
-  categoryData: IGetCateoryResponse;
-  isFetching: boolean;
-}) => {
+const UserTable = ({ userData }: { userData: IGetUsersResponse }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -42,10 +36,10 @@ const CategoryTable = ({
   const [rowSelection, setRowSelection] = useState({});
 
   // get column from hook
-  const columns = useCategoryColumn();
+  const columns = useUserColumn();
 
   const table = useReactTable({
-    data: categoryData,
+    data: userData,
     columns,
 
     // sorting
@@ -76,18 +70,23 @@ const CategoryTable = ({
       pagination,
     },
 
-    rowCount: 8,
+    rowCount: userData.length,
   });
 
   return (
     <Card className="py-2">
-      <CardHeader className="sr-only">Product</CardHeader>
+      <CardHeader className="sr-only">User Table</CardHeader>
 
       <div className="grid md:flex md:flex-row mx-2 items-center md:justify-between gap-2">
         <div>
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
             <TableSearchColumn
               columnName="name"
+              table={table}
+            />
+
+            <TableSearchColumn
+              columnName="email"
               table={table}
             />
           </div>
@@ -120,12 +119,14 @@ const CategoryTable = ({
         {table.getIsSomeColumnsVisible() && (
           <>
             <p className="text-sm text-gray-500">
-              Total Rows : {table.getRowModel().rows.length}
+              Showing {pagination.pageIndex * pagination.pageSize + 1} to{" "}
+              {Math.min(
+                (pagination.pageIndex + 1) * pagination.pageSize,
+                userData.length,
+              )}{" "}
+              of {userData.length} users
             </p>
-            <PaginationButton
-              dataLength={categoryData.length}
-              isFetching={isFetching}
-            />
+            <TablePagination table={table} />
           </>
         )}
       </CardFooter>
@@ -133,4 +134,4 @@ const CategoryTable = ({
   );
 };
 
-export default CategoryTable;
+export default UserTable;

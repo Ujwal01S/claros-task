@@ -5,7 +5,7 @@ import { getErrorMessage } from "@/utils/error-message";
 import axios, { AxiosError, type AxiosResponse } from "axios";
 
 const rootApi = config.API_URL;
-const ERROR_401 = `error/401`;
+// const ERROR_401 = `error/401`;
 
 const api = axios.create({
   baseURL: rootApi,
@@ -51,11 +51,11 @@ api.interceptors.response.use(
     switch (error.response?.status) {
       case HTTP_CODE.BAD_REQUEST:
         break;
-      case HTTP_CODE.UNAUTHORIZED:
-        if (window.location.pathname !== ERROR_401) {
-          window.location.href = ERROR_401;
-        }
-        break;
+      // case HTTP_CODE.UNAUTHORIZED:
+      //   if (window.location.pathname !== ERROR_401) {
+      //     window.location.href = ERROR_401;
+      //   }
+      //   break;
 
       case HTTP_CODE.FORBIDDEN:
         break;

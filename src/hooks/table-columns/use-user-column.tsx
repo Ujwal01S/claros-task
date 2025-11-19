@@ -1,16 +1,16 @@
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { openDeleteDialog } from "@/store/slices/delete-slice";
-import type { ICategory } from "@/types/category.types";
+import type { IUser } from "@/types/user.types";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Trash2Icon } from "lucide-react";
 import { useMemo } from "react";
 import { useAppDispatch } from "../use-redux";
-import { Button } from "@/components/ui/button";
 
-export const useCategoryColumn = () => {
+export const useUserColumn = () => {
   const dispatch = useAppDispatch();
 
-  const columns = useMemo<ColumnDef<ICategory>[]>(
+  const columns = useMemo<ColumnDef<IUser>[]>(
     () => [
       {
         id: "select",
@@ -39,8 +39,17 @@ export const useCategoryColumn = () => {
         enableSorting: false,
       },
       {
-        id: "id",
-        accessorKey: "id",
+        accessorKey: "name",
+        header: "User Name",
+        cell: ({ row }) => {
+          const name = row.getValue("name") as string;
+          return <p className="text-sm">{name}</p>;
+        },
+      },
+
+      {
+        id: "email",
+        accessorKey: "email",
         header: ({ column }) => {
           return (
             <Button
@@ -49,49 +58,47 @@ export const useCategoryColumn = () => {
                 column.toggleSorting(column.getIsSorted() === "asc")
               }
             >
-              Category Id
+              Email
               <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
           );
         },
         cell: ({ row }) => {
-          const title = row.getValue("id") as string;
-          return <p className="text-sm">{title}</p>;
+          const email = row.getValue("email") as string;
+          return <p>{email}</p>;
         },
       },
       {
-        id: "name",
-        accessorKey: "name",
-        header: "Category Name",
+        id: "avatar",
+        accessorKey: "avatar",
+        header: "Avatar",
         cell: ({ row }) => {
-          const title = row.getValue("name") as string;
-          return <p className="text-sm">{title}</p>;
-        },
-      },
-
-      {
-        accessorKey: "image",
-        header: "Image",
-        cell: ({ row }) => {
-          const image = row.getValue("image") as string;
-
+          const image = row.getValue("avatar") as string; // Changed from "avater"
           return (
             <figure>
               <img
                 src={image}
-                className="w-8 h-8 rounded-sm"
+                alt="user avatar"
+                className="w-8 h-8 rounded-sm object-cover"
               />
             </figure>
           );
         },
       },
-
+      {
+        header: "Role",
+        accessorKey: "role",
+        cell: ({ row }) => {
+          const role = row.getValue("role") as "customer" | "admin";
+          return <p>{role}</p>;
+        },
+      },
       {
         id: "actions",
         cell: ({ row }) => {
-          const categoryId = row.original.id;
+          const productId = row.original.id;
           return (
-            <button onClick={() => dispatch(openDeleteDialog(categoryId))}>
+            <button onClick={() => dispatch(openDeleteDialog(productId))}>
               <Trash2Icon className="text-red-500" />
             </button>
           );

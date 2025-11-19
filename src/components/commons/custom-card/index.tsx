@@ -11,6 +11,7 @@ interface Props {
   description?: string;
   type?: "Product" | "Category" | "User";
   id: number;
+  email?: string;
 }
 
 const CustomCard = ({
@@ -21,6 +22,7 @@ const CustomCard = ({
   price,
   type = "Category",
   id,
+  email,
 }: Props) => {
   const dispatch = useAppDispatch();
 
@@ -56,6 +58,11 @@ const CustomCard = ({
             <p className="text-lg font-bold">Category Id : {id}</p>
           )}
           <p className="text-lg font-semibold">{name}</p>
+          {type === "User" && (
+            <>
+              <p>{email}</p>
+            </>
+          )}
           {type === "Product" && (
             <>
               <p className="font-medium text-[14px]">{categoryName}</p>

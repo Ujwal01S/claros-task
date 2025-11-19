@@ -7,3 +7,7 @@ export const productQueryKey = {
 export const categoryQueryKey = {
   GET_ALL_CATEGORY: "all-category",
 };
+
+export const userQueryKey = {
+  GET_ALL_USER: "all-users",
+};

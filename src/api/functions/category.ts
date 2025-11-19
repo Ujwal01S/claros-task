@@ -4,6 +4,8 @@ import api from "@/services/api-request";
 
 interface IGetCategoryFn {
   getAllCategory: () => Promise<IGetCateoryResponse>;
+
+  deleteCategory: (id: number) => Promise<boolean>;
 }
 
 export const getCategoryFn: IGetCategoryFn = {
@@ -11,6 +13,13 @@ export const getCategoryFn: IGetCategoryFn = {
     const url = getCategoryUrl.getAllCategory;
 
     const response = await api.get(url);
+
+    return response.data;
+  },
+  deleteCategory: async (id: number) => {
+    const url = getCategoryUrl.deleteCategory(id);
+
+    const response = await api.delete(url);
 
     return response.data;
   },
