@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useAppDispatch } from "@/hooks/use-redux";
 import { openDeleteDialog } from "@/store/slices/delete-slice";
-import { Pencil, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 interface Props {
   imageUrl: string;
@@ -9,7 +9,7 @@ interface Props {
   categoryName?: string;
   price?: number;
   description?: string;
-  type?: "Product" | "default";
+  type?: "Product" | "Category" | "User";
   id: number;
 }
 
@@ -19,7 +19,7 @@ const CustomCard = ({
   categoryName,
   description,
   price,
-  type = "default",
+  type = "Category",
   id,
 }: Props) => {
   const dispatch = useAppDispatch();
@@ -32,18 +32,16 @@ const CustomCard = ({
     <Card className="group overflow-hidden relative py-0 hover:shadow-md">
       <CardHeader className="sr-only">header</CardHeader>
 
-      <div className="grid gap-2 absolute z-20 right-3 top-3">
-        <button className="w-fit bg-gray-200 hover:bg-gray-300 rounded-full p-1.5">
-          <Pencil size={18} />
-        </button>
-
-        <button
-          className="w-fit bg-gray-200 hover:bg-gray-300 rounded-full p-1.5"
-          onClick={deleteHandler}
-        >
-          <Trash2 size={18} />
-        </button>
-      </div>
+      {type !== "Category" && (
+        <div className="grid gap-2 absolute z-20 right-3 top-3">
+          <button
+            className="w-fit bg-gray-200 hover:bg-gray-300 rounded-full p-1.5"
+            onClick={deleteHandler}
+          >
+            <Trash2 size={18} />
+          </button>
+        </div>
+      )}
       <CardContent className="px-0">
         <figure className="overflow-hidden">
           <img
@@ -54,6 +52,9 @@ const CustomCard = ({
         </figure>
 
         <div className="px-3 py-2 border-t">
+          {type === "Category" && (
+            <p className="text-lg font-bold">Category Id : {id}</p>
+          )}
           <p className="text-lg font-semibold">{name}</p>
           {type === "Product" && (
             <>

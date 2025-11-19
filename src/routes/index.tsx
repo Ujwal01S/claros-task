@@ -9,6 +9,7 @@ import { Route, Routes } from "react-router";
 const HomePage = lazy(() => import("@/pages/home"));
 const AllProductsPage = lazy(() => import("@/pages/home/all-products"));
 const CategoryPage = lazy(() => import("@/pages/data/category"));
+const UsersPage = lazy(() => import("@/pages/data/user"));
 
 const ProjectRoutes = () => {
   return (
@@ -38,6 +39,15 @@ const ProjectRoutes = () => {
           element={
             <Suspense fallback={<Spinner />}>
               <CategoryPage />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path={ROUTE.DATA_USER}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <UsersPage />
             </Suspense>
           }
         />

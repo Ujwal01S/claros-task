@@ -13,8 +13,8 @@ export const navigationData: INavigationProps[] = [
     url: "#",
     icon: Database,
     subNavigation: [
-      { title: "category", url: "/category" },
       { title: "user", url: "/user" },
+      { title: "category", url: "/category" },
     ],
   },
 ];

@@ -1,5 +1,5 @@
-import { useGetAllProducts } from "@/api/hooks/product/use-get-all";
 import PaginationButton from "@/components/commons/pagination-button";
+import TableSearchColumn from "@/components/data-table/filter-column";
 import DataTableRender from "@/components/data-table/render-row";
 import TableFilterColumn from "@/components/data-table/view-options";
 import {
@@ -8,11 +8,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { usePaginationPrams } from "@/hooks/query-params/use-pagination";
-import { useSearchProductParams } from "@/hooks/query-params/use-search-product";
-import { useProductColumn } from "@/hooks/table-columns/use-product-column";
-import { useDebounce } from "@/hooks/use-debounce";
+import { useCategoryColumn } from "@/hooks/table-columns/use-category-column";
+import type { IGetCateoryResponse } from "@/types/category.types";
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -26,27 +23,15 @@ import {
 import { TriangleAlert } from "lucide-react";
 import { useState } from "react";
 
-const ProductTable = ({ dataLength }: { dataLength: number }) => {
+const CategoryTable = ({
+  categoryData,
+  isFetching,
+}: {
+  categoryData: IGetCateoryResponse;
+  isFetching: boolean;
+}) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const { limit, offSet } = usePaginationPrams();
-
-  const {
-    searchWithPrice,
-    searchWithTitle,
-    setSearchWithPrice,
-    setSearchWithTitle,
-  } = useSearchProductParams();
-
-  const debouncedTitle = useDebounce(searchWithTitle, 500);
-  const debouncedPrice = useDebounce(searchWithPrice, 500);
-
-  const { data, isFetching } = useGetAllProducts({
-    limit,
-    offset: offSet,
-    price: Number(debouncedPrice),
-    title: debouncedTitle,
-  });
 
   const [pagination, setPagination] = useState({
     pageIndex: 0, // initial page index
@@ -57,12 +42,10 @@ const ProductTable = ({ dataLength }: { dataLength: number }) => {
   const [rowSelection, setRowSelection] = useState({});
 
   // get column from hook
-  const columns = useProductColumn();
-
-  const tableData = Array.isArray(data) ? data : [];
+  const columns = useCategoryColumn();
 
   const table = useReactTable({
-    data: tableData,
+    data: categoryData,
     columns,
 
     // sorting
@@ -95,6 +78,7 @@ const ProductTable = ({ dataLength }: { dataLength: number }) => {
 
     rowCount: 8,
   });
+
   return (
     <Card className="py-2">
       <CardHeader className="sr-only">Product</CardHeader>
@@ -102,20 +86,12 @@ const ProductTable = ({ dataLength }: { dataLength: number }) => {
       <div className="flex flex-col md:flex-row justify-between gap-2 w-full px-2 items-center">
         <div>
           <p className="text-xs text-gray-500 py-1">
-            Api filter option available
+            Api filter option unavailable filter through tanstack table
           </p>
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-            <Input
-              placeholder="search product with title..."
-              value={searchWithTitle}
-              onChange={(e) => setSearchWithTitle(e.target.value)}
-            />
-            <Input
-              placeholder="search product with price.."
-              type="number"
-              value={searchWithPrice}
-              onChange={(e) => setSearchWithPrice(e.target.value)}
-              className="min-w-50"
+            <TableSearchColumn
+              columnName="name"
+              table={table}
             />
           </div>
         </div>
@@ -143,16 +119,21 @@ const ProductTable = ({ dataLength }: { dataLength: number }) => {
           </div>
         )}
       </CardContent>
-      <CardFooter className="place-self-end px-2">
+      <CardFooter className="flex justify-between px-2">
         {table.getIsSomeColumnsVisible() && (
-          <PaginationButton
-            isFetching={isFetching}
-            dataLength={dataLength}
-          />
+          <>
+            <p className="text-sm text-gray-500">
+              Total : {table.getRowModel().rows.length}
+            </p>
+            <PaginationButton
+              dataLength={categoryData.length}
+              isFetching={isFetching}
+            />
+          </>
         )}
       </CardFooter>
     </Card>
   );
 };
 
-export default ProductTable;
+export default CategoryTable;
