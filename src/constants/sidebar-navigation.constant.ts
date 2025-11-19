@@ -6,17 +6,13 @@ export const navigationData: INavigationProps[] = [
     title: "Home",
     url: "#",
     icon: HomeIcon,
-    subNavigation: [
-      { title: "All Products", url: "/all-product" },
-      { title: "All Category", url: "/all-category" },
-    ],
+    subNavigation: [{ title: "View Products", url: "/view-product" }],
   },
   {
     title: "Data",
     url: "#",
     icon: Database,
     subNavigation: [
-      { title: "product", url: "/product" },
       { title: "category", url: "/category" },
       { title: "user", url: "/user" },
     ],
