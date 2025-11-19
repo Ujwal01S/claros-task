@@ -3,9 +3,10 @@ import { usePaginationPrams } from "@/hooks/query-params/use-pagination";
 
 interface Props {
   isFetching?: boolean;
+  dataLength?: number;
 }
 
-const PaginationButton = ({ isFetching }: Props) => {
+const PaginationButton = ({ isFetching, dataLength }: Props) => {
   const { setOffSet, limit, offSet } = usePaginationPrams();
 
   const previousHandler = () => {
@@ -18,6 +19,11 @@ const PaginationButton = ({ isFetching }: Props) => {
     setOffSet((prev: number) => prev + limit);
   };
 
+  const disableNext =
+    !!isFetching ||
+    (typeof dataLength === "number" &&
+      (dataLength < limit || offSet + limit >= dataLength));
+
   return (
     <div className="flex gap-4 place-self-end">
       <Button
@@ -29,7 +35,7 @@ const PaginationButton = ({ isFetching }: Props) => {
       </Button>
       <Button
         onClick={nextHandler}
-        disabled={isFetching}
+        disabled={disableNext}
         variant={"outline"}
       >
         Next

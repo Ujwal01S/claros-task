@@ -1,7 +1,6 @@
 import { getProductFn } from "@/api/functions/products";
 import { notificationMessage } from "@/constants/notification-message.constant";
 import { productQueryKey } from "@/constants/query-key.constant";
-import { usePaginationPrams } from "@/hooks/query-params/use-pagination";
 import { useAppDispatch } from "@/hooks/use-redux";
 import { closeDeleteDialog } from "@/store/slices/delete-slice";
 import {
@@ -12,8 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
-  //   get states
-  const { limit, offSet } = usePaginationPrams();
+
   const dispatch = useAppDispatch();
 
   //   delete mutation
@@ -21,7 +19,11 @@ export const useDeleteProduct = () => {
     mutationFn: (id: number) => getProductFn.deleteProduct(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [productQueryKey.GET_ALL_PRODUCTS, limit, offSet],
+        queryKey: [productQueryKey.GET_ALL_PRODUCTS],
+      });
+      queryClient.refetchQueries({
+        queryKey: [productQueryKey.GET_ALL_PRODUCTS],
+        type: "active",
       });
       dispatch(closeDeleteDialog());
       successNotification({

@@ -3,10 +3,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { ICategory } from "@/types/category.types";
 import { type IProduct } from "@/types/product.types";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Trash2Icon } from "lucide-react";
 import { useMemo } from "react";
+import { useAppDispatch } from "../use-redux";
+import { openDeleteDialog } from "@/store/slices/delete-slice";
 
 export const useProductColumn = () => {
+  const dispatch = useAppDispatch();
+
   const columns = useMemo<ColumnDef<IProduct>[]>(
     () => [
       {
@@ -89,8 +93,19 @@ export const useProductColumn = () => {
           return <p>{categoryName}</p>;
         },
       },
+      {
+        id: "actions",
+        cell: ({ row }) => {
+          const productId = row.original.id;
+          return (
+            <button onClick={() => dispatch(openDeleteDialog(productId))}>
+              <Trash2Icon className="text-red-500" />
+            </button>
+          );
+        },
+      },
     ],
-    [],
+    [dispatch],
   );
 
   return columns;

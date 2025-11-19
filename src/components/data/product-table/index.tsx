@@ -24,9 +24,9 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { TriangleAlert } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const DataProductPage = () => {
+const ProductTable = ({ dataLength }: { dataLength: number }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { limit, offSet } = usePaginationPrams();
@@ -53,8 +53,7 @@ const DataProductPage = () => {
     pageSize: 8,
   });
 
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
   // get column from hook
@@ -96,68 +95,64 @@ const DataProductPage = () => {
 
     rowCount: 8,
   });
-
   return (
-    <section className="grid gap-3 md:gap-6 flex-1">
-      <header>
-        <h3>Product Data Table</h3>
-      </header>
+    <Card className="py-2">
+      <CardHeader className="sr-only">Product</CardHeader>
 
-      <Card className="py-2">
-        <CardHeader className="sr-only">Header</CardHeader>
-
-        <div className="flex flex-col md:flex-row justify-between gap-2 w-full px-2 items-center">
-          <div>
-            <p className="text-xs text-gray-500 py-1">
-              Api filter option available
-            </p>
-            <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-              <Input
-                placeholder="search product with title..."
-                value={searchWithTitle}
-                onChange={(e) => setSearchWithTitle(e.target.value)}
-              />
-              <Input
-                placeholder="search product with price.."
-                type="number"
-                value={searchWithPrice}
-                onChange={(e) => setSearchWithPrice(e.target.value)}
-                className="min-w-50"
-              />
-            </div>
+      <div className="flex flex-col md:flex-row justify-between gap-2 w-full px-2 items-center">
+        <div>
+          <p className="text-xs text-gray-500 py-1">
+            Api filter option available
+          </p>
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+            <Input
+              placeholder="search product with title..."
+              value={searchWithTitle}
+              onChange={(e) => setSearchWithTitle(e.target.value)}
+            />
+            <Input
+              placeholder="search product with price.."
+              type="number"
+              value={searchWithPrice}
+              onChange={(e) => setSearchWithPrice(e.target.value)}
+              className="min-w-50"
+            />
           </div>
-          <TableFilterColumn table={table} />
         </div>
+        <TableFilterColumn table={table} />
+      </div>
 
-        <CardContent>
-          <DataTableRender
-            columns={columns}
-            table={table}
-          />
-          {/* fallback when all the column are hidden */}
+      <CardContent>
+        <DataTableRender
+          columns={columns}
+          table={table}
+        />
+        {/* fallback when all the column are hidden */}
 
-          {!table.getIsSomeColumnsVisible() && (
-            <div className="w-full flex items-center justify-center gap-2">
-              <div>
-                <TriangleAlert
-                  color="red"
-                  size={24}
-                />
-              </div>
-              <p className="font-semibold">
-                All Column Visibility are off turn any Column Visibility{" "}
-              </p>
+        {!table.getIsSomeColumnsVisible() && (
+          <div className="w-full flex items-center justify-center gap-2">
+            <div>
+              <TriangleAlert
+                color="red"
+                size={24}
+              />
             </div>
-          )}
-        </CardContent>
-        <CardFooter className="place-self-end px-2">
-          {table.getIsSomeColumnsVisible() && (
-            <PaginationButton isFetching={isFetching} />
-          )}
-        </CardFooter>
-      </Card>
-    </section>
+            <p className="font-semibold">
+              All Column Visibility are off turn any Column Visibility{" "}
+            </p>
+          </div>
+        )}
+      </CardContent>
+      <CardFooter className="place-self-end px-2">
+        {table.getIsSomeColumnsVisible() && (
+          <PaginationButton
+            isFetching={isFetching}
+            dataLength={dataLength}
+          />
+        )}
+      </CardFooter>
+    </Card>
   );
 };
 
-export default DataProductPage;
+export default ProductTable;

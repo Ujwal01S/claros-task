@@ -1,11 +1,29 @@
 import { useGetAllProducts } from "@/api/hooks/product/use-get-all";
 import StatusCard from "@/components/commons/status-card";
+import ProductTable from "@/components/data/product-table";
 import { LayoutGrid, Package, Users2 } from "lucide-react";
+import DeleteDialog from "@/components/commons/delete-dailog";
+import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
+import { useDeleteProduct } from "@/api/hooks/product/use-delete";
+import { closeDeleteDialog } from "@/store/slices/delete-slice";
 
 const HomePage = () => {
   // get all product api
   const { data: productData, isPending: productIsPending } =
     useGetAllProducts();
+
+  const { open, id } = useAppSelector((state) => state.deleteDialog);
+  const dispatch = useAppDispatch();
+
+  const { isPending: deleteIsPending, mutate } = useDeleteProduct();
+
+  const handleCloseDialog = () => {
+    dispatch(closeDeleteDialog());
+  };
+
+  const handleConfirmDelete = async () => {
+    mutate(Number(id));
+  };
 
   return (
     <section className="flex flex-col gap-6">
@@ -36,6 +54,15 @@ const HomePage = () => {
           isPending={false}
         />
       </div>
+      <h5>Product Data Table</h5>
+      <ProductTable dataLength={productData?.length ?? 0} />
+
+      <DeleteDialog
+        open={open}
+        onChange={handleCloseDialog}
+        onDelete={handleConfirmDelete}
+        loading={deleteIsPending}
+      />
     </section>
   );
 };

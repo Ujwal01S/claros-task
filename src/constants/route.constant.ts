@@ -4,7 +4,6 @@ const Routes = {
 
   // data routes
 
-  DATA_PRODUCTS: "/product",
   DATA_CATEGORY: "/category",
   DATA_USER: "/user",
 };
