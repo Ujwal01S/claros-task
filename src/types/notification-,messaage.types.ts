@@ -4,4 +4,7 @@ export interface INotificationMessage {
 
   readonly categoryDeleteSuccess: string;
   readonly categoryDeleteFail: string;
+
+  readonly userDeleteSuccess: string;
+  readonly userDeleteFail: string;
 }

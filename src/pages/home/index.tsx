@@ -29,7 +29,7 @@ const HomePage = () => {
   };
 
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col gap-3 md:gap-6">
       <header>
         <h3>Dashboard</h3>
       </header>
@@ -43,21 +43,26 @@ const HomePage = () => {
           isPending={productIsPending}
         />
         <StatusCard
-          title="Categories"
+          title="Users"
           icon={<Users2 className="w-8 h-8 md:w-10 md:h-10" />}
-          total={!isPending ? (categoryData?.length ?? 0) : 0}
+          total={23}
           className="border-l-user"
           isPending={isPending}
         />
         <StatusCard
-          title="Users"
+          title="Categories"
           icon={<LayoutGrid className="w-8 h-8 md:w-10 md:h-10" />}
-          total={329}
+          total={!isPending ? (categoryData?.length ?? 0) : 0}
           className="border-l-category"
-          isPending={false}
+          isPending={isPending}
         />
       </div>
-      <h5>Product Data Table</h5>
+      <div>
+        <h5>Product Data Table</h5>
+        <p className="text-xs text-gray-500 py-1">
+          Api filter option available
+        </p>
+      </div>
       <ProductTable dataLength={productData?.length ?? 0} />
 
       <DeleteDialog

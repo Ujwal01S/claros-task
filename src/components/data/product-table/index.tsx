@@ -99,23 +99,21 @@ const ProductTable = ({ dataLength }: { dataLength: number }) => {
     <Card className="py-2">
       <CardHeader className="sr-only">Product</CardHeader>
 
-      <div className="flex flex-col md:flex-row justify-between gap-2 w-full px-2 items-center">
+      <div className="grid md:flex md:flex-row mx-2 items-center md:justify-between gap-2">
         <div>
-          <p className="text-xs text-gray-500 py-1">
-            Api filter option available
-          </p>
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
             <Input
               placeholder="search product with title..."
               value={searchWithTitle}
               onChange={(e) => setSearchWithTitle(e.target.value)}
+              // className="min-w-full"
             />
             <Input
               placeholder="search product with price.."
               type="number"
               value={searchWithPrice}
               onChange={(e) => setSearchWithPrice(e.target.value)}
-              className="min-w-50"
+              // className="min-w-full"
             />
           </div>
         </div>

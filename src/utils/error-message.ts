@@ -4,6 +4,6 @@ import type { AxiosError } from "axios";
 // extend error message to get single string error message
 export const getErrorMessage = (error: AxiosError<IError>): string => {
   return (
-    error.message || error.response?.data.message || "Something went wrong"
+    error.response?.data.message || error.message || "Something went wrong"
   );
 };

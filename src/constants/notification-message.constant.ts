@@ -4,5 +4,7 @@ export const notificationMessage: INotificationMessage = {
   productDeleteFail: "Failed to delete product",
   productDeleteSuccess: "Product successfully deleted",
   categoryDeleteFail: "Failed to delete category",
-  categoryDeleteSuccess: "Category successfully delted",
+  categoryDeleteSuccess: "Category successfully deleted",
+  userDeleteFail: "User Delete Failed",
+  userDeleteSuccess: "User Successfully deleted",
 };
