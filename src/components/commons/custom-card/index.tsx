@@ -46,7 +46,7 @@ const CustomCard = ({
       <CardHeader className="sr-only">header</CardHeader>
 
       {type !== "Category" && (
-        <div className="grid gap-2 absolute z-20 right-3 top-3">
+        <div className="grid gap-2 absolute z-10 right-3 top-3">
           <button
             className="w-fit bg-gray-200 hover:bg-gray-300 rounded-full p-1.5"
             onClick={deleteHandler}
