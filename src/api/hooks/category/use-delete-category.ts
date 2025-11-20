@@ -16,6 +16,7 @@ export const useDeleteCategory = () => {
   //   mutation query
   const { mutate, isPending } = useMutation<boolean, string, number>({
     mutationFn: (id: number) => getCategoryFn.deleteCategory(id),
+
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [categoryQueryKey.GET_ALL_CATEGORY],
