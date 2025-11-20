@@ -127,7 +127,7 @@ const CartPage = () => {
                       variant="ghost"
                       size="icon"
                       onClick={() => removeHandler(item.id)}
-                      className="text-red-500 flex md:hidden hover:text-red-700 absolute right-0 z-20 bg-gray-200 hover:bg-gray-300 rounded-full -top-6"
+                      className="text-red-500 flex md:hidden hover:text-red-700 absolute right-0 z-10 bg-gray-200 hover:bg-gray-300 rounded-full -top-6"
                     >
                       <Trash2 size={18} />
                     </Button>
