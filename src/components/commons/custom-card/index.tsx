@@ -2,6 +2,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useAppDispatch } from "@/hooks/use-redux";
 import { openDeleteDialog } from "@/store/slices/delete-slice";
 import { Trash2 } from "lucide-react";
+import { useState } from "react";
+import CartButton from "../cart-button";
+import type { IProduct } from "@/types/product.types";
 
 interface Props {
   imageUrl: string;
@@ -12,6 +15,7 @@ interface Props {
   type?: "Product" | "Category" | "User";
   id: number;
   email?: string;
+  product?: IProduct;
 }
 
 const CustomCard = ({
@@ -23,7 +27,10 @@ const CustomCard = ({
   type = "Category",
   id,
   email,
+  product,
 }: Props) => {
+  const [cardHovered, setCardHovered] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
 
   const deleteHandler = () => {
@@ -31,7 +38,11 @@ const CustomCard = ({
   };
 
   return (
-    <Card className="group overflow-hidden relative py-0 hover:shadow-md">
+    <Card
+      className="group overflow-hidden relative py-0 hover:shadow-md"
+      onMouseEnter={() => setCardHovered(true)}
+      onMouseLeave={() => setCardHovered(false)}
+    >
       <CardHeader className="sr-only">header</CardHeader>
 
       {type !== "Category" && (
@@ -74,6 +85,11 @@ const CustomCard = ({
           )}
         </div>
       </CardContent>
+      {type === "Product" && cardHovered && product && (
+        <div className="absolute bottom-0 w-full">
+          <CartButton product={product} />
+        </div>
+      )}
     </Card>
   );
 };

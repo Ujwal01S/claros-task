@@ -10,6 +10,7 @@ const HomePage = lazy(() => import("@/pages/home"));
 const AllProductsPage = lazy(() => import("@/pages/home/all-products"));
 const CategoryPage = lazy(() => import("@/pages/data/category"));
 const UsersPage = lazy(() => import("@/pages/data/user"));
+const CartPage = lazy(() => import("@/pages/cart/index"));
 
 const ProjectRoutes = () => {
   return (
@@ -52,6 +53,15 @@ const ProjectRoutes = () => {
           }
         />
 
+        {/* cart route */}
+        <Route
+          path={ROUTE.CART}
+          element={
+            <Suspense fallback={<Spinner />}>
+              <CartPage />
+            </Suspense>
+          }
+        />
         <Route
           path="*"
           element={<NotFound />}

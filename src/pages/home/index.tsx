@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
 import { useDeleteProduct } from "@/api/hooks/product/use-delete";
 import { closeDeleteDialog } from "@/store/slices/delete-slice";
 import { useGetCategory } from "@/api/hooks/category/use-get-category";
+import { useGetAllUser } from "@/api/hooks/user/use-get-user";
 
 const HomePage = () => {
   // get all product api
@@ -14,6 +15,8 @@ const HomePage = () => {
     useGetAllProducts();
 
   const { categoryData, isPending } = useGetCategory();
+
+  const { userData, userPending } = useGetAllUser();
 
   const { open, id } = useAppSelector((state) => state.deleteDialog);
   const dispatch = useAppDispatch();
@@ -45,9 +48,9 @@ const HomePage = () => {
         <StatusCard
           title="Users"
           icon={<Users2 className="w-8 h-8 md:w-10 md:h-10" />}
-          total={23}
+          total={!userPending ? (userData?.length ?? 0) : 0}
           className="border-l-user"
-          isPending={isPending}
+          isPending={userPending}
         />
         <StatusCard
           title="Categories"
