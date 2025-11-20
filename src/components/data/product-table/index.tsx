@@ -108,15 +108,15 @@ const ProductTable = ({
 
       <div className="grid md:flex md:flex-row mx-2 items-center md:justify-between gap-2">
         <div>
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
             <Input
-              placeholder="search product with title..."
+              placeholder="search with title..."
               value={searchWithTitle}
               onChange={(e) => setSearchWithTitle(e.target.value)}
               // className="min-w-full"
             />
             <Input
-              placeholder="search product with price.."
+              placeholder="search with price.."
               type="number"
               value={searchWithPrice}
               onChange={(e) => setSearchWithPrice(e.target.value)}
