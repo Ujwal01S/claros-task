@@ -29,7 +29,6 @@ export const useDeleteProduct = () => {
         (item) => item?.id === idToDelete,
       );
       console.log("Here");
-      console.log({ itemExistsInCart });
 
       // If found, remove it from cart
       if (itemExistsInCart) {
