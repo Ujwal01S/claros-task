@@ -113,14 +113,12 @@ const ProductTable = ({
               placeholder="search with title..."
               value={searchWithTitle}
               onChange={(e) => setSearchWithTitle(e.target.value)}
-              // className="min-w-full"
             />
             <Input
               placeholder="search with price.."
               type="number"
               value={searchWithPrice}
               onChange={(e) => setSearchWithPrice(e.target.value)}
-              // className="min-w-full"
             />
           </div>
         </div>
