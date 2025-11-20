@@ -1,19 +1,19 @@
+import { useDeleteCategory } from "@/api/hooks/category/use-delete-category";
 import { useGetCategory } from "@/api/hooks/category/use-get-category";
+import CategoryGridView from "@/components/commons/category-grid-view";
+import DeleteDialog from "@/components/commons/delete-dailog";
+import QueryToolTip from "@/components/commons/query-tooltip";
 import TabSwitchWrapper from "@/components/commons/tab-wrapper";
 import CategoryTable from "@/components/data/category-table";
 import { TabsContent } from "@/components/ui/tabs";
-import DeleteDialog from "@/components/commons/delete-dailog";
 import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
 import { closeDeleteDialog } from "@/store/slices/delete-slice";
-import CategoryGridView from "@/components/commons/category-grid-view";
-import { useDeleteCategory } from "@/api/hooks/category/use-delete-category";
-import QueryToolTip from "@/components/commons/query-tooltip";
 
 const CategoryPage = () => {
-  const { categoryData, isPending, isFetching } = useGetCategory();
-  const { mutate, isPending: deletePending } = useDeleteCategory();
+  const { categoryData, isPending } = useGetCategory();
   const tableData = Array.isArray(categoryData) ? categoryData : [];
   const { open, id } = useAppSelector((state) => state.deleteDialog);
+  const { mutate, isPending: deletePending } = useDeleteCategory();
   const dispatch = useAppDispatch();
   const handleCloseDialog = () => {
     dispatch(closeDeleteDialog());
@@ -37,7 +37,7 @@ const CategoryPage = () => {
         <TabsContent value="table">
           <CategoryTable
             categoryData={tableData}
-            isFetching={isFetching}
+            isPending={isPending}
           />
         </TabsContent>
 

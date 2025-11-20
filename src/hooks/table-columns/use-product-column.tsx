@@ -7,6 +7,7 @@ import { ArrowUpDown, Trash2Icon } from "lucide-react";
 import { useMemo } from "react";
 import { useAppDispatch } from "../use-redux";
 import { openDeleteDialog } from "@/store/slices/delete-slice";
+import CartButton from "@/components/commons/cart-button";
 
 export const useProductColumn = () => {
   const dispatch = useAppDispatch();
@@ -38,6 +39,14 @@ export const useProductColumn = () => {
           />
         ),
         enableSorting: false,
+      },
+      {
+        accessorKey: "id",
+        header: "Product Id",
+        cell: ({ row }) => {
+          const id = row.getValue("id") as string;
+          return <p className="text-sm">{id}</p>;
+        },
       },
       {
         accessorKey: "title",
@@ -78,6 +87,7 @@ export const useProductColumn = () => {
             <figure>
               <img
                 src={singleImage}
+                alt="img-file"
                 className="w-8 h-8 rounded-sm"
               />
             </figure>
@@ -98,9 +108,15 @@ export const useProductColumn = () => {
         cell: ({ row }) => {
           const productId = row.original.id;
           return (
-            <button onClick={() => dispatch(openDeleteDialog(productId))}>
-              <Trash2Icon className="text-red-500" />
-            </button>
+            <div className="flex gap-4 w-full justify-center">
+              <button onClick={() => dispatch(openDeleteDialog(productId))}>
+                <Trash2Icon className="text-red-500" />
+              </button>
+              <CartButton
+                type="table"
+                product={row.original}
+              />
+            </div>
           );
         },
       },

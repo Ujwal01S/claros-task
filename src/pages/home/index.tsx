@@ -42,21 +42,23 @@ const HomePage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         <StatusCard
           title="Products"
-          icon={<Package className="w-8 h-8 md:w-10 md:h-10" />}
+          icon={<Package className="min-w-4 min-h-4 w-8 h-8 md:w-10 md:h-10" />}
           total={!productIsPending ? (productData?.length ?? 0) : 0}
           className="border-l-product"
           isPending={productIsPending}
         />
         <StatusCard
           title="Users"
-          icon={<Users2 className="w-8 h-8 md:w-10 md:h-10" />}
+          icon={<Users2 className="min-w-4 min-h-4 w-8 h-8 md:w-10 md:h-10" />}
           total={!userPending ? (userData?.length ?? 0) : 0}
           className="border-l-user"
           isPending={userPending}
         />
         <StatusCard
-          title="Categories"
-          icon={<LayoutGrid className="w-8 h-8 md:w-10 md:h-10" />}
+          title="Category"
+          icon={
+            <LayoutGrid className="min-w-4 min-h-4 w-8 h-8 md:w-10 md:h-10" />
+          }
           total={!isPending ? (categoryData?.length ?? 0) : 0}
           className="border-l-category"
           isPending={isPending}
@@ -64,7 +66,9 @@ const HomePage = () => {
 
         <StatusCard
           title="Cart"
-          icon={<ShoppingBag className="w-8 h-8 md:w-10 md:h-10" />}
+          icon={
+            <ShoppingBag className="min-w-4 min-h-4 w-8 h-8 md:w-10 md:h-10" />
+          }
           total={totalCartItems}
           className="border-l-cart"
           isPending={false}
@@ -76,7 +80,10 @@ const HomePage = () => {
           Api filter option available
         </p>
       </div>
-      <ProductTable dataLength={productData?.length ?? 0} />
+      <ProductTable
+        dataLength={productData?.length ?? 0}
+        isPending={productIsPending}
+      />
 
       <DeleteDialog
         open={open}
