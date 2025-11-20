@@ -51,6 +51,7 @@ h5 {
   --color-category: #4f46e5;
   --color-product: #059669;
   --color-user: #dc2626;
+  --color-cart: #f59e0b;
 }
 
 @theme inline {

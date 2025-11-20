@@ -33,6 +33,7 @@ export const useDeleteUser = () => {
         header: "User",
         description: error || notificationMessage.userDeleteFail,
       });
+      dispatch(closeDeleteDialog());
     },
   });
 

@@ -33,6 +33,7 @@ export const useDeleteCategory = () => {
         header: "Category",
         description: error || notificationMessage.categoryDeleteFail,
       });
+      dispatch(closeDeleteDialog());
     },
   });
 

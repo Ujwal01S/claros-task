@@ -1,13 +1,14 @@
 import { useGetAllProducts } from "@/api/hooks/product/use-get-all";
 import StatusCard from "@/components/commons/status-card";
 import ProductTable from "@/components/data/product-table";
-import { LayoutGrid, Package, Users2 } from "lucide-react";
+import { LayoutGrid, Package, ShoppingBag, Users2 } from "lucide-react";
 import DeleteDialog from "@/components/commons/delete-dailog";
 import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
 import { useDeleteProduct } from "@/api/hooks/product/use-delete";
 import { closeDeleteDialog } from "@/store/slices/delete-slice";
 import { useGetCategory } from "@/api/hooks/category/use-get-category";
 import { useGetAllUser } from "@/api/hooks/user/use-get-user";
+import { selectTotalItems } from "@/store/slices/cart-slice";
 
 const HomePage = () => {
   // get all product api
@@ -19,6 +20,7 @@ const HomePage = () => {
   const { userData, userPending } = useGetAllUser();
 
   const { open, id } = useAppSelector((state) => state.deleteDialog);
+  const totalCartItems = useAppSelector(selectTotalItems);
   const dispatch = useAppDispatch();
 
   const { isPending: deleteIsPending, mutate } = useDeleteProduct();
@@ -37,7 +39,7 @@ const HomePage = () => {
         <h3>Dashboard</h3>
       </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         <StatusCard
           title="Products"
           icon={<Package className="w-8 h-8 md:w-10 md:h-10" />}
@@ -58,6 +60,14 @@ const HomePage = () => {
           total={!isPending ? (categoryData?.length ?? 0) : 0}
           className="border-l-category"
           isPending={isPending}
+        />
+
+        <StatusCard
+          title="Cart"
+          icon={<ShoppingBag className="w-8 h-8 md:w-10 md:h-10" />}
+          total={totalCartItems}
+          className="border-l-cart"
+          isPending={false}
         />
       </div>
       <div>

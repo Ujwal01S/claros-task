@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { memo } from "react";
 
 interface Props {
   className?: string;
@@ -33,4 +34,4 @@ const StatusCard = ({ className, icon, title, total, isPending }: Props) => {
   );
 };
 
-export default StatusCard;
+export default memo(StatusCard);
