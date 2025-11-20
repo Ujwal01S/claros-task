@@ -1,5 +1,5 @@
 import type { INavigationProps } from "@/types/navigation.types";
-import { Database, HomeIcon } from "lucide-react";
+import { Database, HomeIcon, ShoppingCart } from "lucide-react";
 
 export const navigationData: INavigationProps[] = [
   {
@@ -16,5 +16,10 @@ export const navigationData: INavigationProps[] = [
       { title: "user", url: "/user" },
       { title: "category", url: "/category" },
     ],
+  },
+  {
+    title: "Cart",
+    url: "/cart",
+    icon: ShoppingCart,
   },
 ];

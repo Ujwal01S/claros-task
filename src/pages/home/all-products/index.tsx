@@ -94,6 +94,7 @@ const AllProductsPage = () => {
                   description={product.description}
                   price={product.price}
                   type="Product"
+                  product={product}
                 />
               ))}
             </>
