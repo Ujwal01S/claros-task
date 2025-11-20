@@ -56,7 +56,7 @@ const ProductTable = ({
   });
 
   const [pagination, setPagination] = useState({
-    pageIndex: 0, // initial page index
+    pageIndex: 0,
     pageSize: 8,
   });
 
