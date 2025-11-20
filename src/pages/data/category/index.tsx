@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
 import { closeDeleteDialog } from "@/store/slices/delete-slice";
 import CategoryGridView from "@/components/commons/category-grid-view";
 import { useDeleteCategory } from "@/api/hooks/category/use-delete-category";
+import QueryToolTip from "@/components/commons/query-tooltip";
 
 const CategoryPage = () => {
   const { categoryData, isPending, isFetching } = useGetCategory();
@@ -25,11 +26,13 @@ const CategoryPage = () => {
     <section className="grid gap-3 flex-1">
       <header>
         <h3>Categories</h3>
+      </header>
+      <div className="flex gap-2 items-center">
         <p className="text-xs text-gray-500 py-1">
           Api filter option unavailable filter through tanstack table
         </p>
-      </header>
-
+        <QueryToolTip />
+      </div>
       <TabSwitchWrapper defaultValue="table">
         <TabsContent value="table">
           <CategoryTable

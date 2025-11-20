@@ -7,6 +7,7 @@ import DeleteDialog from "@/components/commons/delete-dailog";
 import { useAppDispatch, useAppSelector } from "@/hooks/use-redux";
 import { closeDeleteDialog } from "@/store/slices/delete-slice";
 import { useDeleteUser } from "@/api/hooks/user/use-delete-user";
+import QueryToolTip from "@/components/commons/query-tooltip";
 
 const UsersPage = () => {
   const { userData, userPending } = useGetAllUser();
@@ -28,6 +29,13 @@ const UsersPage = () => {
       <header>
         <h3>Users</h3>
       </header>
+
+      <div className="flex gap-2 items-center">
+        <p className="text-xs text-gray-500 py-1">
+          Api filter option unavailable filter through tanstack table
+        </p>
+        <QueryToolTip />
+      </div>
 
       <TabSwitchWrapper defaultValue="table">
         <TabsContent value="table">
