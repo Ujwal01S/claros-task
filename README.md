@@ -20,7 +20,7 @@ App runs at `http://localhost:5173`
 - **Shopping Cart** - Add/remove products, persistent storage with Redux
 - **Product Management** - Search, filter, paginate products
 - **Data Tables** - Sortable columns, filters, pagination (TanStack Table)
-- **Category & User Management** - CRUD operations
+
 
 ## 🛠️ Tech Stack
 
