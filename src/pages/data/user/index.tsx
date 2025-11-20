@@ -39,7 +39,10 @@ const UsersPage = () => {
 
       <TabSwitchWrapper defaultValue="table">
         <TabsContent value="table">
-          <UserTable userData={userDataFallback} />
+          <UserTable
+            userData={userDataFallback}
+            isPending={userPending}
+          />
         </TabsContent>
 
         <TabsContent value="grid">

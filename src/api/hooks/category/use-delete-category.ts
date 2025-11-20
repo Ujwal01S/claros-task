@@ -20,6 +20,10 @@ export const useDeleteCategory = () => {
       queryClient.invalidateQueries({
         queryKey: [categoryQueryKey.GET_ALL_CATEGORY],
       });
+      queryClient.refetchQueries({
+        queryKey: [categoryQueryKey.GET_ALL_CATEGORY],
+        type: "active",
+      });
 
       dispatch(closeDeleteDialog());
       successNotification({

@@ -1,6 +1,6 @@
-import PaginationButton from "@/components/commons/pagination-button";
 import TableSearchColumn from "@/components/data-table/filter-column";
 import DataTableRender from "@/components/data-table/render-row";
+import TablePagination from "@/components/data-table/table-pagination";
 import TableFilterColumn from "@/components/data-table/view-options";
 import {
   Card,
@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
 import { useCategoryColumn } from "@/hooks/table-columns/use-category-column";
 import type { IGetCateoryResponse } from "@/types/category.types";
 import {
@@ -25,10 +26,10 @@ import { useState } from "react";
 
 const CategoryTable = ({
   categoryData,
-  isFetching,
+  isPending,
 }: {
   categoryData: IGetCateoryResponse;
-  isFetching: boolean;
+  isPending: boolean;
 }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -96,10 +97,16 @@ const CategoryTable = ({
       </div>
 
       <CardContent>
-        <DataTableRender
-          columns={columns}
-          table={table}
-        />
+        {isPending ? (
+          <div className="w-full flex items-center justify-center">
+            <Spinner />
+          </div>
+        ) : (
+          <DataTableRender
+            columns={columns}
+            table={table}
+          />
+        )}
         {/* fallback when all the column are hidden */}
 
         {!table.getIsSomeColumnsVisible() && (
@@ -120,12 +127,14 @@ const CategoryTable = ({
         {table.getIsSomeColumnsVisible() && (
           <>
             <p className="text-sm text-gray-500">
-              Total Rows : {table.getRowModel().rows.length}
+              Showing {pagination.pageIndex * pagination.pageSize + 1} to{" "}
+              {Math.min(
+                (pagination.pageIndex + 1) * pagination.pageSize,
+                categoryData.length,
+              )}{" "}
+              of {categoryData.length} users
             </p>
-            <PaginationButton
-              dataLength={categoryData.length}
-              isFetching={isFetching}
-            />
+            <TablePagination table={table} />
           </>
         )}
       </CardFooter>

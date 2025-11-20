@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
 import { useUserColumn } from "@/hooks/table-columns/use-user-column";
 import type { IGetUsersResponse } from "@/types/user.types";
 import {
@@ -23,7 +24,13 @@ import {
 import { TriangleAlert } from "lucide-react";
 import { useState } from "react";
 
-const UserTable = ({ userData }: { userData: IGetUsersResponse }) => {
+const UserTable = ({
+  userData,
+  isPending,
+}: {
+  userData: IGetUsersResponse;
+  isPending: boolean;
+}) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -95,10 +102,16 @@ const UserTable = ({ userData }: { userData: IGetUsersResponse }) => {
       </div>
 
       <CardContent>
-        <DataTableRender
-          columns={columns}
-          table={table}
-        />
+        {isPending ? (
+          <div className="w-full flex items-center justify-center">
+            <Spinner />
+          </div>
+        ) : (
+          <DataTableRender
+            columns={columns}
+            table={table}
+          />
+        )}
         {/* fallback when all the column are hidden */}
 
         {!table.getIsSomeColumnsVisible() && (

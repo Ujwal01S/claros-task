@@ -10,7 +10,7 @@ import { useDeleteCategory } from "@/api/hooks/category/use-delete-category";
 import QueryToolTip from "@/components/commons/query-tooltip";
 
 const CategoryPage = () => {
-  const { categoryData, isPending, isFetching } = useGetCategory();
+  const { categoryData, isPending } = useGetCategory();
   const { mutate, isPending: deletePending } = useDeleteCategory();
   const tableData = Array.isArray(categoryData) ? categoryData : [];
   const { open, id } = useAppSelector((state) => state.deleteDialog);
@@ -37,7 +37,7 @@ const CategoryPage = () => {
         <TabsContent value="table">
           <CategoryTable
             categoryData={tableData}
-            isFetching={isFetching}
+            isPending={isPending}
           />
         </TabsContent>
 

@@ -9,6 +9,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { usePaginationPrams } from "@/hooks/query-params/use-pagination";
 import { useSearchProductParams } from "@/hooks/query-params/use-search-product";
 import { useProductColumn } from "@/hooks/table-columns/use-product-column";
@@ -26,7 +27,13 @@ import {
 import { TriangleAlert } from "lucide-react";
 import { useState } from "react";
 
-const ProductTable = ({ dataLength }: { dataLength: number }) => {
+const ProductTable = ({
+  dataLength,
+  isPending,
+}: {
+  dataLength: number;
+  isPending: boolean;
+}) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { limit, offSet } = usePaginationPrams();
@@ -121,10 +128,16 @@ const ProductTable = ({ dataLength }: { dataLength: number }) => {
       </div>
 
       <CardContent>
-        <DataTableRender
-          columns={columns}
-          table={table}
-        />
+        {isPending ? (
+          <div className="min-w-full flex items-center justify-center">
+            <Spinner />
+          </div>
+        ) : (
+          <DataTableRender
+            columns={columns}
+            table={table}
+          />
+        )}
         {/* fallback when all the column are hidden */}
 
         {!table.getIsSomeColumnsVisible() && (

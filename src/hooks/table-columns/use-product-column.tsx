@@ -78,6 +78,7 @@ export const useProductColumn = () => {
             <figure>
               <img
                 src={singleImage}
+                alt="img-file"
                 className="w-8 h-8 rounded-sm"
               />
             </figure>
