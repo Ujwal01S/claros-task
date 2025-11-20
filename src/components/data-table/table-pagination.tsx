@@ -7,6 +7,14 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 interface Props<TData> {
   table: TableType<TData>;
 }
@@ -46,21 +54,26 @@ const TablePagination = <TData,>({ table }: Props<TData>) => {
           >
             <ChevronsRight />
           </Button>
-          <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => {
-              table.setPageSize(Number(e.target.value));
+          <Select
+            value={String(table.getState().pagination.pageSize)}
+            onValueChange={(value) => {
+              table.setPageSize(Number(value));
             }}
           >
-            {[6, 10, 15, 20, 40].map((pageSize) => (
-              <option
-                key={pageSize}
-                value={pageSize}
-              >
-                {pageSize}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className="w-[60px]">
+              <SelectValue placeholder="Select page size" />
+            </SelectTrigger>
+            <SelectContent>
+              {[5, 8, 10, 15, 20, 40].map((pageSize) => (
+                <SelectItem
+                  key={pageSize}
+                  value={String(pageSize)}
+                >
+                  {pageSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       ) : (
         <></>

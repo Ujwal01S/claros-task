@@ -100,13 +100,12 @@ const CartPage = () => {
         </Button>
       </header>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Left side - Cart Items */}
-        <div className="lg:col-span-2 space-y-4">
+      <div className="grid lg:grid-cols-3 gap-6 ">
+        <div className="lg:col-span-2 space-y-4 ">
           {cartItems.map((item) => (
             <Card key={item.id}>
               <CardContent className="p-4">
-                <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex flex-col md:flex-row gap-4 justify-between">
                   {/* Product Image */}
                   <div className="flex gap-3 relative">
                     <img
@@ -128,7 +127,7 @@ const CartPage = () => {
                       variant="ghost"
                       size="icon"
                       onClick={() => removeHandler(item.id)}
-                      className="text-red-500 flex md:hidden hover:text-red-700 absolute right-0 z-20 bg-gray-200 hover:bg-gray-300 rounded-full -top-6"
+                      className="text-red-500 flex md:hidden hover:text-red-700 absolute right-0 z-10 bg-gray-200 hover:bg-gray-300 rounded-full -top-6"
                     >
                       <Trash2 size={18} />
                     </Button>

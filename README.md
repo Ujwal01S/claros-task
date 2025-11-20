@@ -34,6 +34,7 @@ App runs at `http://localhost:5173`
 
 ## 🌐 API Integration
 
+API FROM: `https://fakeapi.platzi.com/en`
 Base API: `https://api.escuelajs.co/api/v1`
 
 - Filter through api only available for product

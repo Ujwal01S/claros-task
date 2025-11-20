@@ -1,45 +1,18 @@
+import CartButton from "@/components/commons/cart-button";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { openDeleteDialog } from "@/store/slices/delete-slice";
 import type { ICategory } from "@/types/category.types";
 import { type IProduct } from "@/types/product.types";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Trash2Icon } from "lucide-react";
 import { useMemo } from "react";
 import { useAppDispatch } from "../use-redux";
-import { openDeleteDialog } from "@/store/slices/delete-slice";
-import CartButton from "@/components/commons/cart-button";
 
 export const useProductColumn = () => {
   const dispatch = useAppDispatch();
 
   const columns = useMemo<ColumnDef<IProduct>[]>(
     () => [
-      {
-        id: "select",
-        header: ({ table }) => (
-          <Checkbox
-            checked={
-              table.getIsAllPageRowsSelected()
-                ? true
-                : table.getIsSomePageRowsSelected()
-                  ? "indeterminate"
-                  : false
-            }
-            onCheckedChange={(value) =>
-              table.toggleAllPageRowsSelected(!!value)
-            }
-            aria-label="Select all"
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-          />
-        ),
-        enableSorting: false,
-      },
       {
         accessorKey: "id",
         header: "Product Id",
