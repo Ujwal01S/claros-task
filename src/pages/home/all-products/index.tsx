@@ -26,8 +26,8 @@ const AllProductsPage = () => {
   } = useSearchProductParams();
 
   // Debounce search values for 1sec
-  const debouncedTitle = useDebounce(searchWithTitle, 1000);
-  const debouncedPrice = useDebounce(searchWithPrice, 1000);
+  const debouncedTitle = useDebounce(searchWithTitle, 500);
+  const debouncedPrice = useDebounce(searchWithPrice, 500);
 
   // react query hooks
   const { data, isPending } = useGetAllProducts({
